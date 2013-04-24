@@ -4,5 +4,5 @@ class Snippet < ActiveRecord::Base
   belongs_to :user
 
   has_many :comments
-  has_many :snippets
+  has_many :tags
 end
