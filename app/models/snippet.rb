@@ -5,4 +5,6 @@ class Snippet < ActiveRecord::Base
 
   has_many :comments
   has_many :tags
+
+  validates :title, :code, presence: true
 end

@@ -2,17 +2,19 @@
 
 <table>
   <tr>
+    <th>Title</th>
+    <th>Description</th>
     <th>Lang</th>
     <th>Code</th>
-    <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @snippets.each do |snippet| %>
   <tr>
+    <td><%= snippet.title %></td>
+    <td><%= html_escape(snippet.description[0..49]) %></td>
+    <!-- TODO: lang should be chosen by combobox (select-tag) -->
     <td><%= snippet.lang %></td>
-    <td><%= snippet.code %></td>
+    <td><code><%= snippet.code[0..49] %></code></td>
     <td><%= link_to 'Show', snippet %></td>
     <td><%= link_to 'Edit', edit_snippet_path(snippet) %></td>
     <td><%= link_to 'Destroy', snippet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
