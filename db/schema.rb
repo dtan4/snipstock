@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130424092205) do
+ActiveRecord::Schema.define(:version => 20130424093108) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -24,8 +24,11 @@ ActiveRecord::Schema.define(:version => 20130424092205) do
   create_table "snippets", :force => true do |t|
     t.string   "lang"
     t.text     "code"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.string   "title",       :default => "no title", :null => false
+    t.text     "description"
+    t.integer  "user_id"
   end
 
   create_table "tags", :force => true do |t|
