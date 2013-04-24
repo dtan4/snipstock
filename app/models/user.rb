@@ -11,4 +11,11 @@ class User < ActiveRecord::Base
   }
   validates :password, length: { minimum: 8 }
   has_secure_password
+
+  after_destroy :ensure_a_user_remains
+
+  private
+  def ensure_a_user_remains
+    raise "Cannot delete the last user." if User.count.zero?
+  end
 end
