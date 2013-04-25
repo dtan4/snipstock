@@ -18,10 +18,8 @@
 <p>
   <b>Code:</b>
 </p>
-<pre>
-  <code>
+<pre class="prettyprint linenums">
 <%= @snippet.code.chomp %>
-  </code>
 </pre>
 
 <h3>以下コメントです</h3>
@@ -31,3 +29,5 @@
 
 <%= link_to 'Edit', edit_snippet_path(@snippet) %> |
 <%= link_to 'Back', snippets_path %>
+
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&skin=sunburst"></script>
