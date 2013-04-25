@@ -4,7 +4,7 @@ class Snippet < ActiveRecord::Base
   belongs_to :user
 
   has_many :comments
-  has_many :tags
+  has_and_belongs_to_many :tags
 
   validates :title, :code, presence: true
 end

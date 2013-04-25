@@ -1,5 +1,5 @@
 class Tag < ActiveRecord::Base
   attr_accessible :name, :snippet_id
 
-  belongs_to :snippet
+  has_and_belongs_to_many :snippet
 end
