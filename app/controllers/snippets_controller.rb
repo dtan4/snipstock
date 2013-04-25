@@ -14,6 +14,7 @@ class SnippetsController < ApplicationController
   # GET /snippets/1.json
   def show
     @snippet = Snippet.find(params[:id])
+    @comment = @snippet.comments.build
 
     respond_to do |format|
       format.html # show.html.erb
