@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Snipstock</title>
+  <title>SnipStock</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+  <table border="0">
+    <tr>
+      <td><%= link_to 'Snippets', snippets_path %></td>
+      <td><%= link_to 'Users', users_path %></td>
+      <td><%= link_to 'Comments', comments_path %></td>
+    </tr>
+  </table>
 
 <%= yield %>
 
