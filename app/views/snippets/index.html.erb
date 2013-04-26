@@ -5,6 +5,7 @@
     <th>Title</th>
     <th>Description</th>
     <th>Lang</th>
+    <th>Tags</th>
     <th>Code</th>
   </tr>
 
@@ -14,6 +15,7 @@
     <td><%= html_escape(snippet.description[0..49]) %></td>
     <!-- TODO: lang should be chosen by combobox (select-tag) -->
     <td><%= snippet.lang %></td>
+    <td><%= snippet.tag_list %></td>
     <td><code><%= snippet.code[0..49] %></code></td>
     <td><%= link_to 'Show', snippet %></td>
     <td><%= link_to 'Edit', edit_snippet_path(snippet) %></td>
