@@ -1,12 +1,16 @@
 <table>
-<% @snippet.comments.each_with_index do |comment, i| %>
-<% unless comment.id.nil? %>
+  <% if @snippet.comments.length < 2 %>
+     <p>No comment</p>
+  <% else %>
+  <% @snippet.comments.each_with_index do |comment, i| %>
+  <% unless comment.id.nil? %>
   <tr>
     <td><b><%= "#{i + 1}. " %></b></td>
     <!-- TODO: show user name -->
     <td><%= comment.user_id %>: </td>
     <td><%= comment.description %></td>
   </tr>
-<% end %>
-<% end %>
+  <% end %>
+  <% end %>
+  <% end %>
 </table>
