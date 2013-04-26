@@ -38,3 +38,6 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # gem 'debugger'
 
 gem 'pry-rails', :group => :development
+
+# Tag management
+gem 'acts-as-taggable-on'
