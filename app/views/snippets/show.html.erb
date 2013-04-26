@@ -1,15 +1,33 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <b>Title:</b>
+  <%= @snippet.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= html_escape(@snippet.description) %>
+</p>
+
+<p>
   <b>Lang:</b>
   <%= @snippet.lang %>
 </p>
 
 <p>
   <b>Code:</b>
-  <%= @snippet.code %>
 </p>
+<pre class="prettyprint linenums">
+<%= @snippet.code.chomp %>
+</pre>
 
+<h3>以下コメントです</h3>
+<%= render 'comments/index' %>
+<h4>コメントをください</h4>
+<%= render 'comments/form' %>
 
 <%= link_to 'Edit', edit_snippet_path(@snippet) %> |
 <%= link_to 'Back', snippets_path %>
+
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>

@@ -4,13 +4,12 @@ Snipstock::Application.routes.draw do
   resources :comments
 
 
-  resources :tags
-
-
   resources :users
 
 
-  resources :snippets
+  resources :snippets do
+    resources :comments
+  end
 
 
   # The priority is based upon order of creation:
