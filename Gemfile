@@ -42,3 +42,6 @@ gem 'pry-rails', :group => :development
 gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
+
+# Tag management
+gem 'acts-as-taggable-on'
