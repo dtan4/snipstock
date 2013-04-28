@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426074521) do
+ActiveRecord::Schema.define(:version => 20130428085800) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "snippet_id"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.string   "description", :default => "", :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   create_table "snippet_tags", :id => false, :force => true do |t|
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20130426074521) do
   end
 
   create_table "snippets", :force => true do |t|
-    t.string   "lang"
+    t.string   "lang",        :default => "text",     :null => false
     t.text     "code"
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false

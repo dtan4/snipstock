@@ -1,4 +1,4 @@
-<%= form_for([@snippet, @comment]) do |f| %>
+<%= bootstrap_form_for([@snippet, @comment]) do |f| %>
   <% if @comment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
@@ -12,8 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.text_area :description, class: "span8", rows: 5 %>
   </div>
   <div class="actions">
     <%= f.submit %>
