@@ -13,7 +13,7 @@
   <span><strong>Tags:</strong> <%= snippet.tag_list %></span>
   </div>
   <!-- TODO: lang should be chosen by combobox (select-tag) -->
-  <pre class="prettyprint linenums"><%= snippet.code.lines[0..10].join unless snippet.code.nil? %></pre>
+  <pre class="brush: <%= snippet.lang.downcase %>"><%= snippet.code.lines[0..10].join unless snippet.code.nil? %></pre>
   <div class="text-right">
   <span><%= link_to 'Edit', edit_snippet_path(snippet) %></span>
   <span><%= link_to 'Destroy', snippet, method: :delete, data: { confirm: 'Are you sure?' } %></span>
@@ -21,6 +21,33 @@
 </div>
 <% end %>
 
-<br />
+<script src="/scripts/XRegExp.js"></script>
+<script src="/scripts/shCore.js"></script>
+<script src="/scripts/shAutoloader.js"></script>
+<link type="text/css" rel="stylesheet" href="/styles/shCore.css"/>
+<link type="text/css" rel="Stylesheet" href="/styles/shThemeDefault.css" />
 
-<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+<script type="text/javascript">
+  SyntaxHighlighter.autoloader(
+  'cpp c					/scripts/shBrushCpp.js',
+  'c# c-sharp csharp		/scripts/shBrushCSharp.js',
+  'css					/scripts/shBrushCss.js',
+  'delphi pascal			/scripts/shBrushDelphi.js',
+  'diff patch pas			/scripts/shBrushDiff.js',
+  'erl erlang				/scripts/shBrushErlang.js',
+  'groovy					/scripts/shBrushGroovy.js',
+  'java					/scripts/shBrushJava.js',
+  'js jscript javascript	/scripts/shBrushJScript.js',
+  'perl pl				/scripts/shBrushPerl.js',
+  'php					/scripts/shBrushPhp.js',
+  'text plain				/scripts/shBrushPlain.js',
+  'py python				/scripts/shBrushPython.js',
+  'ruby rails ror rb		/scripts/shBrushRuby.js',
+  'scala					/scripts/shBrushScala.js',
+  'sql					/scripts/shBrushSql.js',
+  'vb vbnet				/scripts/shBrushVb.js',
+  'xml xhtml xslt html	/scripts/shBrushXml.js'
+  );
+
+  SyntaxHighlighter.all();
+</script>
