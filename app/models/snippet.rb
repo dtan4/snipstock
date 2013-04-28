@@ -8,4 +8,5 @@ class Snippet < ActiveRecord::Base
   has_many :comments
 
   validates :title, :code, presence: true
+  validates :lang, presence: true
 end
