@@ -21,6 +21,11 @@ ActiveRecord::Schema.define(:version => 20130426074521) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "snippet_tags", :id => false, :force => true do |t|
+    t.integer "id"
+    t.string  "name"
+  end
+
   create_table "snippets", :force => true do |t|
     t.string   "lang"
     t.text     "code"
