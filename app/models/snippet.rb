@@ -1,5 +1,5 @@
 class Snippet < ActiveRecord::Base
-  attr_accessible :code, :lang, :title, :description, :user_id, :comments, :tags, :tag_list
+  attr_accessible :code, :lang, :title, :description, :user_id, :comments, :tags, :tag_list, :created_at
 
   acts_as_taggable
   acts_as_taggable_on :tags

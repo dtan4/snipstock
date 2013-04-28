@@ -1,22 +1,25 @@
 <h1>Listing snippets</h1>
 
 <div class="text-right">
-  <%= button_to 'Create Snippet', new_snippet_path, method: :get, class: "btn btn-large btn-primary" %>
+  <%= link_to 'New Snippet', new_snippet_path, class: "btn btn-large btn-primary disabled" %>
 </div>
+<br />
 
 <% @snippets.each do |snippet| %>
 <div class="well">
+  <p><small>posted <%= distance_of_time_in_words(Time.now, snippet.created_at) %> ago</small></p>
   <h3><%= link_to snippet.title, snippet %></h3>
   <p><%= html_escape(snippet.description[0..49]) unless snippet.description.nil? %></p>
   <div class="text-right">
-  <span><strong>Lang:</strong> <%= snippet.lang %></span>
-  <span><strong>Tags:</strong> <%= snippet.tag_list %></span>
+    <span><strong>Lang:</strong> <%= snippet.lang %></span>
+    <span><strong>Tags:</strong> <%= snippet.tag_list %></span><br />
+    <span><%= pluralize(snippet.comments.length, "comment") %></span>
   </div>
   <!-- TODO: lang should be chosen by combobox (select-tag) -->
-  <pre class="brush: <%= snippet.lang.downcase %>"><%= snippet.code.lines[0..10].join unless snippet.code.nil? %></pre>
+  <pre class="brush: <%= snippet.lang.downcase %>"><%= snippet.code.lines[0..9].join %></pre>
   <div class="text-right">
-  <span><%= link_to 'Edit', edit_snippet_path(snippet) %></span>
-  <span><%= link_to 'Destroy', snippet, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+    <span><%= link_to 'Edit', edit_snippet_path(snippet), class: "btn btn-small btn-success disabled" %></span>
+    <span><%= link_to 'Destroy', snippet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-small btn-danger disabled" %></span>
   </div>
 </div>
 <% end %>

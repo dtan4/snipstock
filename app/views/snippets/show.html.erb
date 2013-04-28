@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+<p><small>posted <%= distance_of_time_in_words(Time.now, @snippet.created_at) %> ago</small></p>
 <div class="page-header">
   <h1><%= @snippet.title %></h1>
   <%= html_escape(@snippet.description) %>
@@ -27,7 +28,7 @@
 <h4>コメントをください</h4>
 <%= render 'comments/form' %>
 
-<%= link_to 'Edit', edit_snippet_path(@snippet) %> |
+<span><%= link_to 'Edit', edit_snippet_path(@snippet), class: "btn btn-small btn-success disabled" %></span>
 <%= link_to 'Back', snippets_path %>
 
 <script src="/scripts/XRegExp.js"></script>
