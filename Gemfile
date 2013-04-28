@@ -45,3 +45,5 @@ gem 'twitter-bootstrap-rails'
 
 # Tag management
 gem 'acts-as-taggable-on'
+
+gem 'bootstrap_forms'

@@ -1,14 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Title:</b>
-  <%= @snippet.title %>
-</p>
-
-<p>
-  <b>Description:</b>
+<p><small>posted <%= distance_of_time_in_words(Time.now, @snippet.created_at) %> ago</small></p>
+<div class="page-header">
+  <h1><%= @snippet.title %></h1>
   <%= html_escape(@snippet.description) %>
-</p>
+</div>
 
 <p>
   <b>Lang:</b>
@@ -23,7 +19,7 @@
 <p>
   <b>Code:</b>
 </p>
-<pre class="prettyprint linenums">
+<pre class="brush: <%= @snippet.lang.downcase %>">
 <%= @snippet.code.chomp %>
 </pre>
 
@@ -32,7 +28,36 @@
 <h4>コメントをください</h4>
 <%= render 'comments/form' %>
 
-<%= link_to 'Edit', edit_snippet_path(@snippet) %> |
+<span><%= link_to 'Edit', edit_snippet_path(@snippet), class: "btn btn-small btn-success disabled" %></span>
 <%= link_to 'Back', snippets_path %>
 
-<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+<script src="/scripts/XRegExp.js"></script>
+<script src="/scripts/shCore.js"></script>
+<script src="/scripts/shAutoloader.js"></script>
+<link type="text/css" rel="stylesheet" href="/styles/shCore.css"/>
+<link type="text/css" rel="Stylesheet" href="/styles/shThemeDefault.css" />
+
+<script type="text/javascript">
+  SyntaxHighlighter.autoloader(
+  'cpp c					/scripts/shBrushCpp.js',
+  'c# c-sharp csharp		/scripts/shBrushCSharp.js',
+  'css					/scripts/shBrushCss.js',
+  'delphi pascal			/scripts/shBrushDelphi.js',
+  'diff patch pas			/scripts/shBrushDiff.js',
+  'erl erlang				/scripts/shBrushErlang.js',
+  'groovy					/scripts/shBrushGroovy.js',
+  'java					/scripts/shBrushJava.js',
+  'js jscript javascript	/scripts/shBrushJScript.js',
+  'perl pl				/scripts/shBrushPerl.js',
+  'php					/scripts/shBrushPhp.js',
+  'text plain				/scripts/shBrushPlain.js',
+  'py python				/scripts/shBrushPython.js',
+  'ruby rails ror rb		/scripts/shBrushRuby.js',
+  'scala					/scripts/shBrushScala.js',
+  'sql					/scripts/shBrushSql.js',
+  'vb vbnet				/scripts/shBrushVb.js',
+  'xml xhtml xslt html	/scripts/shBrushXml.js'
+  );
+
+  SyntaxHighlighter.all();
+</script>
