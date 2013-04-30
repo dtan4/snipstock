@@ -1,4 +1,6 @@
 class SnippetsController < ApplicationController
+  skip_before_filter :authorize, only: [:index, :show]
+
   # GET /snippets
   # GET /snippets.json
   def index

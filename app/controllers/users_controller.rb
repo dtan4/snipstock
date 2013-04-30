@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_filter :authorize, only: [:new, :create]
+
   # GET /users
   # GET /users.json
   def index
@@ -25,6 +27,7 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
+    session[:user_id] = @user.id
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,6 +44,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
+    session[:user_id] = @user.id
 
     respond_to do |format|
       if @user.save

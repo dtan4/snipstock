@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_filter :load_snippet
+  skip_before_filter :authorize, only: [:index, :show]
 
   # GET /comments
   # GET /comments.json
