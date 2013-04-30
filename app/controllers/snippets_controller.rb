@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class SnippetsController < ApplicationController
   skip_before_filter :authorize, only: [:index, :show]
 
@@ -38,12 +39,14 @@ class SnippetsController < ApplicationController
   # GET /snippets/1/edit
   def edit
     @snippet = Snippet.find(params[:id])
+    check_snippet_creater
   end
 
   # POST /snippets
   # POST /snippets.json
   def create
     @snippet = Snippet.new(params[:snippet])
+    @snippet.user_id = @login_user.id
 
     respond_to do |format|
       if @snippet.save
@@ -60,6 +63,7 @@ class SnippetsController < ApplicationController
   # PUT /snippets/1.json
   def update
     @snippet = Snippet.find(params[:id])
+    check_snippet_creater
 
     respond_to do |format|
       if @snippet.update_attributes(params[:snippet])
@@ -76,11 +80,19 @@ class SnippetsController < ApplicationController
   # DELETE /snippets/1.json
   def destroy
     @snippet = Snippet.find(params[:id])
+    check_snippet_creater
     @snippet.destroy
 
     respond_to do |format|
       format.html { redirect_to snippets_url }
       format.json { head :no_content }
+    end
+  end
+
+  private
+  def check_snippet_author
+    unless @snippet.user_id == @login_user.id
+      redirect_to login_url, notice: "ログインしてください"
     end
   end
 end

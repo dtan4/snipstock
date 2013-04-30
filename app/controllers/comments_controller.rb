@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class CommentsController < ApplicationController
   before_filter :load_snippet
   skip_before_filter :authorize, only: [:index, :show]
@@ -38,12 +39,14 @@ class CommentsController < ApplicationController
   # GET /comments/1/edit
   def edit
     @comment = @snippet.comments.find(params[:id])
+    check_comment_author
   end
 
   # POST /comments
   # POST /comments.json
   def create
     @comment = @snippet.comments.build(params[:comment])
+    @comment.user_id = @login_user.id
 
     respond_to do |format|
       if @comment.save
@@ -60,6 +63,7 @@ class CommentsController < ApplicationController
   # PUT /comments/1.json
   def update
     @comment = @snippet.comments.find(params[:id])
+    check_comment_author
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
@@ -76,6 +80,8 @@ class CommentsController < ApplicationController
   # DELETE /comments/1.json
   def destroy
     @comment = @snippet.comments.find(params[:id])
+    check_comment_author
+
     @comment.destroy
 
     respond_to do |format|
@@ -87,5 +93,11 @@ class CommentsController < ApplicationController
   private
   def load_snippet
     @snippet = Snippet.find(params[:snippet_id])
+  end
+
+  def check_comment_author
+    unless @comment.user_id == @login_user.id
+      redirect_to login_url, notice: "ログインしてください"
+    end
   end
 end
