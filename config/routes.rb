@@ -4,7 +4,7 @@ Snipstock::Application.routes.draw do
   controller :sessions do
     get 'login' => :new
     post 'login' => :create
-    delete 'logout' => :logout
+    delete 'logout' => :destroy
   end
 
 
