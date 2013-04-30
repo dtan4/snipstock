@@ -1,6 +1,13 @@
 Snipstock::Application.routes.draw do
   get "top/index"
 
+  controller :sessions do
+    get 'login' => :new
+    post 'login' => :create
+    delete 'logout' => :logout
+  end
+
+
   resources :comments
 
 
