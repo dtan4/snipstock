@@ -53,6 +53,7 @@ class SnippetsController < ApplicationController
     respond_to do |format|
       if @snippet.save
         format.html { redirect_to @snippet, notice: 'Snippet was successfully created.' }
+        format.js
         format.json { render json: @snippet, status: :created, location: @snippet }
       else
         format.html { render action: "new" }
