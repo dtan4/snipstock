@@ -3,4 +3,6 @@
   <p>Stock and Share your snippets.</p>
 </div>
 
-<%= render 'snippets/simple_form' %>
+<% if @login_user.nil? %>
+<h1>ログインしてください</h1>
+<% end %>

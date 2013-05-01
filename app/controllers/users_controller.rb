@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_filter :authorize, only: [:new, :create]
+
   # GET /users
   # GET /users.json
   def index
@@ -25,6 +27,7 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
+    session[:user_id] = @user.id
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,6 +44,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
+    session[:user_id] = @user.id
 
     respond_to do |format|
       if @user.save
@@ -73,7 +77,12 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
+    begin
+      @user.destroy
+      flash[:notice] = "User #{@user.name} was successfully deleted."
+    rescue Exception => e
+      flash[:notice] = e.message
+    end
 
     respond_to do |format|
       format.html { redirect_to users_url }
