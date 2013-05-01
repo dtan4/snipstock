@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class ApplicationController < ActionController::Base
-  before_filter :authorize, :current_user
+  before_filter :authorize, :current_user, :new_snippet
 
   protect_from_forgery
 
@@ -17,5 +17,9 @@ class ApplicationController < ActionController::Base
       else
         User.find_by_id(session[:user_id])
       end
+  end
+
+  def new_snippet
+    @snippet_top = Snippet.new
   end
 end
