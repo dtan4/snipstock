@@ -97,7 +97,11 @@ class CommentsController < ApplicationController
 
   def check_comment_author
     unless @comment.user_id == @login_user.id
-      redirect_to login_url, notice: "ログインしてください"
+      if session[:user_id].nil?
+        redirect_to login_url, notice: "ログインしてください"
+      else
+        redirect_to @snippet, alert: "作成者以外は編集できません"
+      end
     end
   end
 end

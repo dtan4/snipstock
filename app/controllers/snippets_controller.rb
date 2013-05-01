@@ -39,7 +39,7 @@ class SnippetsController < ApplicationController
   # GET /snippets/1/edit
   def edit
     @snippet = Snippet.find(params[:id])
-    check_snippet_creater
+    check_snippet_author
   end
 
   # POST /snippets
@@ -63,7 +63,7 @@ class SnippetsController < ApplicationController
   # PUT /snippets/1.json
   def update
     @snippet = Snippet.find(params[:id])
-    check_snippet_creater
+    check_snippet_author
 
     respond_to do |format|
       if @snippet.update_attributes(params[:snippet])
@@ -80,7 +80,7 @@ class SnippetsController < ApplicationController
   # DELETE /snippets/1.json
   def destroy
     @snippet = Snippet.find(params[:id])
-    check_snippet_creater
+    check_snippet_author
     @snippet.destroy
 
     respond_to do |format|
@@ -92,7 +92,11 @@ class SnippetsController < ApplicationController
   private
   def check_snippet_author
     unless @snippet.user_id == @login_user.id
-      redirect_to login_url, notice: "ログインしてください"
+      if session[:user_id].nil?
+        redirect_to login_url, notice: "ログインしてください"
+      else
+        redirect_to @snippet, alert: "作成者以外は編集できません"
+      end
     end
   end
 end
