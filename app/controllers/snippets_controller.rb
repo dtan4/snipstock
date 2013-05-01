@@ -6,6 +6,7 @@ class SnippetsController < ApplicationController
   # GET /snippets.json
   def index
     @snippets = Snippet.paginate(page: params[:page], order: 'updated_at desc', per_page: 10)
+    @snippet = Snippet.new
 
     respond_to do |format|
       format.html # index.html.erb
