@@ -1,2 +1,2 @@
-$('.table').html("<%=j render 'comments/index' %>");
+$('#comments_table tbody').append('<tr><td><b><%= @snippet.comments.length %>: </b></td><td><%=j @comment.user_id %>: </td><td><%=j @comment.description %></td></tr>');
 $('#comment_description').val("");
