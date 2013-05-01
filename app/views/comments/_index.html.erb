@@ -7,7 +7,7 @@
   <tr>
     <td><b><%= "#{i + 1}. " %></b></td>
     <!-- TODO: show user name -->
-    <td><%= comment.user_id %>: </td>
+    <td><%= User.find_by_id(comment.user_id).name %>: </td>
     <td><%= comment.description %></td>
   </tr>
   <% end %>

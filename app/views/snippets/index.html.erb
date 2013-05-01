@@ -11,7 +11,7 @@
 <% end %>
 <div class="span6">
   <div class="well">
-    <p><small>posted <%= distance_of_time_in_words(Time.now, snippet.created_at) %> ago</small></p>
+    <p>posted by <strong><%= User.find_by_id(snippet.user_id).name %></strong>, <%= distance_of_time_in_words(Time.now, snippet.created_at) %> ago</p>
     <h3><%= link_to snippet.title, snippet %></h3>
     <p><%= html_escape(snippet.description[0..49]) unless snippet.description.nil? %></p>
     <div class="text-right">

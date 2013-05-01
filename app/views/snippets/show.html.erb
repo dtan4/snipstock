@@ -1,4 +1,4 @@
-<p><small>posted <%= distance_of_time_in_words(Time.now, @snippet.created_at) %> ago</small></p>
+<p>posted by <strong><%= User.find_by_id(@snippet.user_id).name %></strong>, <%= distance_of_time_in_words(Time.now, @snippet.created_at) %> ago</p>
 <div class="page-header">
   <h1><%= @snippet.title %></h1>
   <%= html_escape(@snippet.description) %>
