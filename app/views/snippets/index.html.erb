@@ -1,10 +1,5 @@
 <h1>Listing snippets</h1>
 
-<div class="text-right">
-  <%= link_to 'New Snippet', new_snippet_path, class: "btn btn-large btn-primary disabled" %>
-</div>
-<br />
-
 <% @snippets.each_with_index do |snippet, i| %>
 <div class="well">
   <p>posted by <strong><%= User.find_by_id(snippet.user_id).name %></strong>, <%= distance_of_time_in_words(Time.now, snippet.created_at) %> ago</p>
@@ -14,7 +9,11 @@
       <p><%= html_escape(snippet.description[0..49]) unless snippet.description.nil? %></p>
       <!-- TODO: lang should be chosen by combobox (select-tag) -->
       <p><strong>Lang:</strong> <%= snippet.lang %></p>
-      <p><strong>Tags:</strong> <%= snippet.tag_list %></p>
+      <div class="field">
+        <% snippet.tag_list.each do |tag| %>
+        <%= button_tag tag, class: "btn btn-small" %>
+        <% end %>
+      </div>
       <p><%= pluralize(snippet.comments.length, "comment") %></p>
     </div>
     <div class="span8">
