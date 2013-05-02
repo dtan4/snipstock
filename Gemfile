@@ -47,3 +47,5 @@ gem 'twitter-bootstrap-rails'
 gem 'acts-as-taggable-on'
 
 gem 'bootstrap_forms'
+
+gem 'will_paginate'
