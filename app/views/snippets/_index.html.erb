@@ -16,14 +16,21 @@
     </div>
     <div class="span8">
       <pre class="brush: <%= snippet.lang.downcase %>"><%= snippet.code.lines[0..9].join %></pre>
+      <% if params[:login_id] && snippet.user_id == params[:login_id] %>
       <div class="text-right">
-        <!-- <span><%= link_to 'Edit', edit_snippet_path(snippet), class: "btn btn-small btn-success disabled" %></span> -->
-        <!-- <span><%= link_to 'Destroy', snippet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-small btn-danger disabled" %></span> -->
+        <span><%= link_to 'Edit', edit_snippet_path(snippet), class: "btn btn-small btn-success disabled" %></span>
+        <span><%= link_to 'Destroy', snippet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-small btn-danger disabled" %></span>
       </div>
+      <% end %>
     </div>
   </div>
 </div>
 <% end %>
+
+<div class="field">
+  <%= link_to 'New snippet', new_snippet_path, class: "btn btn-large disabled" %>
+</div>
+<p><%= will_paginate @snippets, class: "pagination pagination-centered" %></p>
 
 <script src="/scripts/XRegExp.js"></script>
 <script src="/scripts/shCore.js"></script>

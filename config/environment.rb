@@ -5,3 +5,4 @@ require File.expand_path('../application', __FILE__)
 Snipstock::Application.initialize!
 
 require 'acts-as-taggable-on'
+require 'will_paginate'
