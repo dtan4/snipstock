@@ -1,7 +1,6 @@
 <table class="table table-striped" id="comments_table">
-  <% if @snippet.comments.length < 2 %>
-     <p>No comment</p>
-  <% else %>
+  <tbody>
+  <% if @snippet.comments.length > 1 %>
   <% @snippet.comments.each_with_index do |comment, i| %>
   <% unless comment.id.nil? %>
   <tr>
@@ -13,4 +12,8 @@
   <% end %>
   <% end %>
   <% end %>
+  </tbody>
 </table>
+<% if @snippet.comments.length <= 1 %>
+   <p id="no_comment">No comment</p>
+   <% end %>
