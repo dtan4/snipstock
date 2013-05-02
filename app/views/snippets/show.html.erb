@@ -1,7 +1,24 @@
-<p>posted by <strong><%= User.find_by_id(@snippet.user_id).name %></strong>, <%= distance_of_time_in_words(Time.now, @snippet.created_at) %> ago</p>
+<p>posted by <strong><%= link_to @author.name, @author %></strong>, <%= distance_of_time_in_words(Time.now, @snippet.created_at) %> ago</p>
 <div class="page-header">
+  <% if @login_user && @author.id == @login_user.id %>
+  <div class="row-fluid">
+    <div class="span10">
+      <h1><%= @snippet.title %></h1>
+      <%= html_escape(@snippet.description) %>
+    </div>
+    <div class="span2">
+      <div class="field">
+        <%= link_to 'Edit', edit_snippet_path(@snippet), class: "btn btn-success desabled" %>
+      </div>
+      <div class="field">
+        <%= link_to 'Delete', @snippet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger disabled" %>
+      </div>
+    </div>
+  </div>
+  <% else %>
   <h1><%= @snippet.title %></h1>
   <%= html_escape(@snippet.description) %>
+  <% end %>
 </div>
 
 <p>
@@ -9,10 +26,11 @@
   <%= @snippet.lang %>
 </p>
 
-<p>
-  <b>Tags:</b>
-  <%= @snippet.tag_list %>
-</p>
+<div class="field">
+  <% @snippet.tag_list.each do |tag| %>
+  <%= button_tag tag, class: "btn" %>
+  <% end %>
+</div>
 
 <p>
   <b>Code:</b>
@@ -26,8 +44,9 @@
 <h4>コメントをください</h4>
 <%= render 'comments/form' %>
 
-<span><%= link_to 'Edit', edit_snippet_path(@snippet), class: "btn btn-small btn-success disabled" %></span>
-<%= link_to 'Back', snippets_path %>
+<div class="text-center">
+  <%= link_to 'Back', snippets_path %>
+</div>
 
 <script src="/scripts/XRegExp.js"></script>
 <script src="/scripts/shCore.js"></script>

@@ -18,6 +18,7 @@ class SnippetsController < ApplicationController
   def show
     @snippet = Snippet.find(params[:id])
     @comment = @snippet.comments.build
+    @author = User.find(@snippet.user_id)
 
     respond_to do |format|
       format.html # show.html.erb
