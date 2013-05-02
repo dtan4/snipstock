@@ -26,6 +26,13 @@ class SnippetsController < ApplicationController
     end
   end
 
+  def search
+    @snippets = Snippet.where('title like ? or code like ?', "%#{params[:q]}%", "%#{params[:q]}%")
+      .paginate(page: params[:page], order: 'updated_at desc', per_page: 10)
+
+    render action: 'index'
+  end
+
   # GET /snippets/new
   # GET /snippets/new.json
   def new
