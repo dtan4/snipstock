@@ -30,7 +30,7 @@
 <div class="field">
   <%= link_to 'New snippet', new_snippet_path, class: "btn btn-large disabled" %>
 </div>
-<p><%= will_paginate @snippets %></p>
+<p><%= will_paginate @snippets, class: "pagination pagination-centered" %></p>
 
 <script src="/scripts/XRegExp.js"></script>
 <script src="/scripts/shCore.js"></script>
