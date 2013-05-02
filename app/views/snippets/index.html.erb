@@ -3,7 +3,7 @@
 </div>
 
 <div class="text-right">
-  <%= bootstrap_form_tag(:search_snippets, method: :get, class: "form-search") do %>
+  <%= form_tag :search_snippets, method: :get, class: "form-search" do %>
   <%= text_field_tag 'q', params[:q], class:"input-medium search-query" %>
   <%= submit_tag 'Search', class: "btn" %>
   <% end %>

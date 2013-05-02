@@ -45,7 +45,11 @@
               <li><%= link_to 'Snippets', snippets_path %></li>
               <li><%= link_to 'Users', users_path %></li>
               <li><%= link_to 'Comments', comments_path %></li>
+              <li class="divider-vertical"></li>
             </ul>
+            <%= form_tag search_snippets_path, method: :get, class: "navbar-search pull-left" do %>
+            <%= text_field_tag 'q', params[:q], class: "search-query", placeholder: "Search" %>
+            <% end %>
             <ul class="nav pull-right">
               <li class="divider-vertical"></li>
               <% if @login_user.nil? %>

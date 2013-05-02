@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class SnippetsController < ApplicationController
-  skip_before_filter :authorize, only: [:index, :show]
+  skip_before_filter :authorize, only: [:index, :show, :search]
 
   # GET /snippets
   # GET /snippets.json
