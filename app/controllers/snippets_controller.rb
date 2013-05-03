@@ -20,8 +20,7 @@ class SnippetsController < ApplicationController
     @comment = @snippet.comments.build
     @author = User.find(@snippet.user_id)
 
-    if @login_user.nil? ||
-        (@snippet.private && (@snippet.user_id != @login_user.id))
+    if @snippet.private && (@login_user.nil? || (@snippet.user_id != @login_user.id))
       redirect_to snippets_url, alert: "このスニペットは非公開です"
       return
     end
