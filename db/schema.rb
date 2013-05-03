@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130428085800) do
+ActiveRecord::Schema.define(:version => 20130503100142) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20130428085800) do
     t.string   "title",       :default => "no title", :null => false
     t.text     "description"
     t.integer  "user_id"
+    t.boolean  "private"
   end
 
   create_table "taggings", :force => true do |t|
