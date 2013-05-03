@@ -6,7 +6,7 @@
     <div class="span4">
       <p><%= html_escape(snippet.description[0..49]) unless snippet.description.nil? %></p>
       <!-- TODO: lang should be chosen by combobox (select-tag) -->
-      <p><strong>Lang:</strong> <%= snippet.lang %></p>
+      <p><strong>Lang:</strong> <%= link_to snippet.lang, langs_snippets_path(lang: snippet.lang) %></p>
       <div class="field">
         <% snippet.tag_list.each do |tag| %>
         <%= link_to tag, tags_snippets_path(tag: tag), class: "btn btn-small" %>

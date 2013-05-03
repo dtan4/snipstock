@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class SnippetsController < ApplicationController
-  skip_before_filter :authorize, only: [:index, :show, :search, :tags]
+  skip_before_filter :authorize, only: [:index, :show, :search, :langs, :tags]
 
   # GET /snippets
   # GET /snippets.json
@@ -28,6 +28,16 @@ class SnippetsController < ApplicationController
 
   def search
     @snippets = Snippet.where('title like ? or description like ? or code like ?', "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
+      .paginate(page: params[:page], order: 'updated_at desc', per_page: 10)
+
+    respond_to do |format|
+      format.html { render action: 'index' }
+      format.json { render @snippets }
+    end
+  end
+
+  def langs
+    @snippets = Snippet.where('lang like ?', "%#{params[:lang]}%")
       .paginate(page: params[:page], order: 'updated_at desc', per_page: 10)
 
     respond_to do |format|
