@@ -1,6 +1,9 @@
 <% @snippets.each_with_index do |snippet, i| %>
 <div class="well">
   <p>posted by <strong><%= User.find_by_id(snippet.user_id).name %></strong>, <%= distance_of_time_in_words(Time.now, snippet.created_at) %> ago</p>
+  <% if snippet.private %>
+  <h4>* Private *</h4>
+  <% end %>
   <h2><%= link_to snippet.title, snippet %></h2>
   <div class="row-fluid">
     <div class="span4">

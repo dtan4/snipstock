@@ -5,7 +5,7 @@ class SnippetsController < ApplicationController
   # GET /snippets
   # GET /snippets.json
   def index
-    @snippets = Snippet.paginate(page: params[:page], order: 'updated_at desc', per_page: 10)
+    @snippets = Snippet.where(private: false).paginate(page: params[:page], order: 'updated_at desc', per_page: 10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,6 +19,11 @@ class SnippetsController < ApplicationController
     @snippet = Snippet.find(params[:id])
     @comment = @snippet.comments.build
     @author = User.find(@snippet.user_id)
+
+    if @snippet.private && (@snippet.user_id != @login_user.id)
+      redirect_to snippets_url, alert: "このスニペットは非公開です"
+      return
+    end
 
     respond_to do |format|
       format.html # show.html.erb
