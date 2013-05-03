@@ -12,11 +12,6 @@
   <% end %>
 
   <div class="row-fluid">
-    <div class="span8">
-      <div class="field">
-        <%= f.text_area :code, class: "span12" %>
-      </div>
-    </div>
     <div class="span4">
       <div class="field">
         <%= f.text_field :title %>
@@ -34,8 +29,17 @@
         <%= f.text_field :lang %>
       </div>
 
+      <div class="field">
+        <%= f.check_box :private %>
+      </div>
+
       <div class="actions">
         <%= f.submit %>
+      </div>
+    </div>
+    <div class="span8">
+      <div class="field">
+        <%= f.text_area :code, class: "span12" %>
       </div>
     </div>
   </div>

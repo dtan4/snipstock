@@ -1,4 +1,7 @@
 <p>posted by <strong><%= link_to @author.name, @author %></strong>, <%= distance_of_time_in_words(Time.now, @snippet.created_at) %> ago</p>
+<% if @snippet.private %>
+<h4>* Private *</h4>
+<% end %>
 <div class="page-header">
   <% if @login_user && @author.id == @login_user.id %>
   <div class="row-fluid">
@@ -7,12 +10,12 @@
       <%= html_escape(@snippet.description) %>
     </div>
     <div class="span2">
-      <div class="field">
+      <span class="field">
         <%= link_to 'Edit', edit_snippet_path(@snippet), class: "btn btn-success desabled" %>
-      </div>
-      <div class="field">
+      </span>
+      <span class="field">
         <%= link_to 'Delete', @snippet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger disabled" %>
-      </div>
+      </span>
     </div>
   </div>
   <% else %>
