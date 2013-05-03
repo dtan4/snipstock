@@ -20,6 +20,7 @@ Snipstock::Application.routes.draw do
   resources :snippets do
     collection do
       get :search
+      get :tags
     end
 
     resources :comments

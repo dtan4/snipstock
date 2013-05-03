@@ -9,7 +9,7 @@
       <p><strong>Lang:</strong> <%= snippet.lang %></p>
       <div class="field">
         <% snippet.tag_list.each do |tag| %>
-        <%= button_tag tag, class: "btn btn-small" %>
+        <%= link_to tag, tags_snippets_path(tag: tag), class: "btn btn-small" %>
         <% end %>
       </div>
       <p><%= pluralize(snippet.comments.length, "comment") %></p>

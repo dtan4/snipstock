@@ -1,7 +1,9 @@
 <div class="page-header">
   <h1>Listing snippets</h1>
-  <% if params[:q] %>
-  <p>Search keyword: <%= params[:q] %>, <%= pluralize(@snippets.length, 'result') %></p>
+  <% if params[:q] && params[:q] != "" %>
+  <p>Search keyword: <strong><%= params[:q] %></strong></p>
+  <% elsif params[:tag] %>
+  <p>Tag: <strong><%= params[:tag] %></strong></p>
   <% end %>
 </div>
 
