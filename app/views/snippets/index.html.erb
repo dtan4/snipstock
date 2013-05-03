@@ -1,3 +1,18 @@
-<h1>Listing snippets</h1>
+<div class="page-header">
+  <h1>Listing snippets</h1>
+  <% if params[:q] && params[:q] != "" %>
+  <p>Search keyword: <strong><%= params[:q] %></strong></p>
+  <% elsif params[:tag] %>
+  <p>Tag: <strong><%= params[:tag] %></strong></p>
+  <% elsif params[:lang] %>
+  <p>Lang: <strong><%= params[:lang] %></strong></p>
+  <% end %>
+</div>
 
+<div class="text-right">
+  <%= form_tag :search_snippets, method: :get, class: "form-search" do %>
+  <%= text_field_tag 'q', params[:q], class:"input-medium search-query" %>
+  <%= submit_tag 'Search', class: "btn" %>
+  <% end %>
+</div>
 <%= render 'index' %>

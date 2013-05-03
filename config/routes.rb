@@ -18,9 +18,14 @@ Snipstock::Application.routes.draw do
 
 
   resources :snippets do
+    collection do
+      get :search
+      get :langs
+      get :tags
+    end
+
     resources :comments
   end
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
