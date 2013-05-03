@@ -37,7 +37,10 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # To use debugger
 # gem 'debugger'
 
-gem 'pry-rails', :group => :development
+group :development do
+  gem 'pry-rails'
+  gem 'pry-debugger'
+end
 
 gem 'therubyracer'
 gem 'less-rails'
