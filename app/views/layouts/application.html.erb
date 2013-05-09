@@ -43,20 +43,16 @@
           <div class="container-fluid">
             <ul class="nav">
               <li><%= link_to 'Snippets', snippets_path %></li>
-              <li><%= link_to 'Users', users_path %></li>
-              <li><%= link_to 'Comments', comments_path %></li>
-              <li class="divider-vertical"></li>
-              <% if @login_user %>
-              <li><a href="#newSnipModal" data-toggle="modal">New Snippet</a></li>
-              <% end %>
             </ul>
-            <%= form_tag search_snippets_path, method: :get, class: "navbar-search pull-left" do %>
-            <%= text_field_tag 'q', params[:q], class: "search-query", placeholder: "Search" %>
-            <% end %>
             <ul class="nav pull-right">
               <li class="divider-vertical"></li>
-
+              <li>
+              <%= form_tag search_snippets_path, method: :get, class: "navbar-search" do %>
+              <%= text_field_tag 'q', params[:q], class: "search-query", placeholder: "Search" %>
+              <% end %>
+              </li>
               <% if @login_user %>
+              <li><a href="#newSnipModal" data-toggle="modal"><i class="icon-plus-sign"></i> New Snippet</a></li>
               <li><%= link_to @login_user.name, @login_user %></li>
               <li><%= link_to 'Logout', logout_path %></li>                            <% else %>
               <li><%= link_to 'Sign up', new_user_path %></li>
@@ -78,7 +74,6 @@
       <%= bootstrap_flash %>
       <%= yield %>
       <footer>
-        <p>&copy; Company 2013</p>
       </footer>
 
     </div> <!-- /container -->
