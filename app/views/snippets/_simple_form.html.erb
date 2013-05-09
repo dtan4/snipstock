@@ -4,7 +4,7 @@
     <h3 id="myModalLabel">New Snippet</h3>
   </div>
   <div class="modal-body">
-    <%= bootstrap_form_for(@snippet_top, remote: true) do |f| %>
+    <%= bootstrap_form_for(@snippet_top) do |f| %>
     <% if @snippet_top.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@snippet_top.errors.count, "error") %> prohibited this snippet from being saved:</h2>
