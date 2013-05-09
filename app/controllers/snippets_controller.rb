@@ -87,7 +87,7 @@ class SnippetsController < ApplicationController
 
     respond_to do |format|
       if @snippet.save
-        format.html { redirect_to @snippet, notice: 'Snippet was successfully created.' }
+        format.html { redirect_to @snippet, notice: "Snippet '#{@snippet.title}' was successfully created." }
         format.json { render json: @snippet, status: :created, location: @snippet }
       else
         format.html { render action: "new" }
@@ -104,7 +104,7 @@ class SnippetsController < ApplicationController
 
     respond_to do |format|
       if @snippet.update_attributes(params[:snippet])
-        format.html { redirect_to @snippet, notice: 'Snippet was successfully updated.' }
+        format.html { redirect_to @snippet, notice: "Snippet '#{@snippet.title}' was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
