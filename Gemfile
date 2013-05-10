@@ -37,4 +37,18 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # To use debugger
 # gem 'debugger'
 
-gem 'pry-rails', :group => :development
+group :development do
+  gem 'pry-rails'
+  gem 'pry-debugger'
+end
+
+gem 'therubyracer'
+gem 'less-rails'
+gem 'twitter-bootstrap-rails'
+
+# Tag management
+gem 'acts-as-taggable-on'
+
+gem 'bootstrap_forms'
+
+gem 'will_paginate'

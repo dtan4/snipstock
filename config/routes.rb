@@ -1,9 +1,31 @@
 Snipstock::Application.routes.draw do
+  get "top/index"
+
+  controller :sessions do
+    get 'login' => :new
+    post 'login' => :create
+    get 'logout' => :destroy
+  end
+
+  resources :top do
+    resources :sessions
+  end
+
+  resources :comments
+
+
   resources :users
 
 
-  resources :snippets
+  resources :snippets do
+    collection do
+      get :search
+      get :langs
+      get :tags
+    end
 
+    resources :comments
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -54,7 +76,7 @@ Snipstock::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'top#index'
 
   # See how all your routes lay out with "rake routes"
 

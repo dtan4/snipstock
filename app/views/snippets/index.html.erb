@@ -1,25 +1,18 @@
-<h1>Listing snippets</h1>
+<div class="page-header">
+  <h1>Listing snippets</h1>
+  <% if params[:q] && params[:q] != "" %>
+  <p>Search keyword: <strong><%= params[:q] %></strong></p>
+  <% elsif params[:tag] %>
+  <p>Tag: <strong><%= params[:tag] %></strong></p>
+  <% elsif params[:lang] %>
+  <p>Lang: <strong><%= params[:lang] %></strong></p>
+  <% end %>
+</div>
 
-<table>
-  <tr>
-    <th>Lang</th>
-    <th>Code</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @snippets.each do |snippet| %>
-  <tr>
-    <td><%= snippet.lang %></td>
-    <td><%= snippet.code %></td>
-    <td><%= link_to 'Show', snippet %></td>
-    <td><%= link_to 'Edit', edit_snippet_path(snippet) %></td>
-    <td><%= link_to 'Destroy', snippet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Snippet', new_snippet_path %>
+<div class="text-right">
+  <%= form_tag :search_snippets, method: :get, class: "form-search" do %>
+  <%= text_field_tag 'q', params[:q], class:"input-medium search-query" %>
+  <%= submit_tag 'Search', class: "btn" %>
+  <% end %>
+</div>
+<%= render 'index' %>

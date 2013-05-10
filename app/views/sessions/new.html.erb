@@ -1,0 +1,15 @@
+<%= bootstrap_form_tag do %>
+<div class="field">
+  <%= label_tag "User Name" %>
+  <%= text_field_tag :name, params[:name] %>
+</div>
+
+<div class="field">
+  <%= label_tag "Password" %>
+  <%= password_field_tag :password, params[:password] %>
+</div>
+
+<div class="actions">
+  <%= submit_tag "Login" %>
+</div>
+<% end %>

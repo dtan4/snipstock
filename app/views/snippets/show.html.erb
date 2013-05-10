@@ -1,15 +1,83 @@
-<p id="notice"><%= notice %></p>
+<p>posted by <strong><%= link_to @author.name, @author %></strong>, <%= distance_of_time_in_words(Time.now, @snippet.created_at) %> ago</p>
+<% if @snippet.private %>
+<h4>* Private *</h4>
+<% end %>
+<div class="page-header">
+  <% if @login_user && @author.id == @login_user.id %>
+  <div class="row-fluid">
+    <div class="span10">
+      <h1><%= @snippet.title %></h1>
+      <%= html_escape(@snippet.description) %>
+    </div>
+    <div class="span2">
+      <span class="field">
+        <%= link_to 'Edit', edit_snippet_path(@snippet), class: "btn btn-success desabled" %>
+      </span>
+      <span class="field">
+        <%= link_to 'Delete', @snippet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger disabled" %>
+      </span>
+    </div>
+  </div>
+  <% else %>
+  <h1><%= @snippet.title %></h1>
+  <%= html_escape(@snippet.description) %>
+  <% end %>
+</div>
 
 <p>
   <b>Lang:</b>
   <%= @snippet.lang %>
 </p>
 
+<div class="field">
+  <% @snippet.tag_list.each do |tag| %>
+  <%= link_to tag, tags_snippets_path(tag: tag), class: "btn btn-small" %>
+  <% end %>
+</div>
+
 <p>
   <b>Code:</b>
-  <%= @snippet.code %>
 </p>
+<pre class="brush: <%= @snippet.lang.downcase %>">
+<%= @snippet.code.chomp %>
+</pre>
 
+<h3>以下コメントです</h3>
+<%= render 'comments/index' %>
+<h4>コメントをください</h4>
+<%= render 'comments/form' %>
 
-<%= link_to 'Edit', edit_snippet_path(@snippet) %> |
-<%= link_to 'Back', snippets_path %>
+<div class="text-center">
+  <%= link_to 'Back', snippets_path %>
+</div>
+
+<script src="/scripts/XRegExp.js"></script>
+<script src="/scripts/shCore.js"></script>
+<script src="/scripts/shAutoloader.js"></script>
+<link type="text/css" rel="stylesheet" href="/styles/shCore.css"/>
+<link type="text/css" rel="Stylesheet" href="/styles/shThemeDefault.css" />
+
+<script type="text/javascript">
+  SyntaxHighlighter.autoloader(
+  'cpp c					/scripts/shBrushCpp.js',
+  'c# c-sharp csharp		/scripts/shBrushCSharp.js',
+  'css					/scripts/shBrushCss.js',
+  'delphi pascal			/scripts/shBrushDelphi.js',
+  'diff patch pas			/scripts/shBrushDiff.js',
+  'erl erlang				/scripts/shBrushErlang.js',
+  'groovy					/scripts/shBrushGroovy.js',
+  'java					/scripts/shBrushJava.js',
+  'js jscript javascript	/scripts/shBrushJScript.js',
+  'perl pl				/scripts/shBrushPerl.js',
+  'php					/scripts/shBrushPhp.js',
+  'text plain				/scripts/shBrushPlain.js',
+  'py python				/scripts/shBrushPython.js',
+  'ruby rails ror rb		/scripts/shBrushRuby.js',
+  'scala					/scripts/shBrushScala.js',
+  'sql					/scripts/shBrushSql.js',
+  'vb vbnet				/scripts/shBrushVb.js',
+  'xml xhtml xslt html	/scripts/shBrushXml.js'
+  );
+
+  SyntaxHighlighter.all();
+</script>

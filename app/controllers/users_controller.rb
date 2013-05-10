@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_filter :authorize, only: [:new, :create]
+
   # GET /users
   # GET /users.json
   def index
@@ -14,6 +16,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @snippets = Snippet.where(user_id: @user.id).paginate(page: params[:page], order: 'updated_at desc', per_page: 10)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,6 +28,7 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
+    session[:user_id] = @user.id
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,7 +48,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to users_url, notice: "User #{@user.name} was successfully created." }
+        session[:user_id] = @user.id
+        format.html { redirect_to root_url, notice: "User #{@user.name} was successfully created." }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -73,7 +78,12 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
+    begin
+      @user.destroy
+      flash[:notice] = "User #{@user.name} was successfully deleted."
+    rescue Exception => e
+      flash[:notice] = e.message
+    end
 
     respond_to do |format|
       format.html { redirect_to users_url }
