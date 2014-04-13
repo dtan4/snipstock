@@ -82,7 +82,7 @@ class SnippetsController < ApplicationController
   # POST /snippets
   # POST /snippets.json
   def create
-    @snippet = Snippet.new(params[:snippet])
+    @snippet = Snippet.new(snippet_params)
     @snippet.user_id = @login_user.id
 
     respond_to do |format|
