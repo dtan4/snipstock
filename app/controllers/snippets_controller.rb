@@ -103,7 +103,7 @@ class SnippetsController < ApplicationController
     check_snippet_author
 
     respond_to do |format|
-      if @snippet.update_attributes(params[:snippet])
+      if @snippet.update_attributes(snippet_params)
         format.html { redirect_to @snippet, notice: "Snippet '#{@snippet.title}' was successfully updated." }
         format.json { head :no_content }
       else
@@ -136,5 +136,9 @@ class SnippetsController < ApplicationController
         redirect_to @snippet, alert: "作成者以外は編集できません"
       end
     end
+  end
+
+  def snippet_params
+    params.require(:snippet).permit(:code, :lang, :title, :description, :user_id, :comments, :tags, :tag_list, :private)
   end
 end

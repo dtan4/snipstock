@@ -66,7 +66,7 @@ class CommentsController < ApplicationController
     check_comment_author
 
     respond_to do |format|
-      if @comment.update_attributes(params[:comment])
+      if @comment.update_attributes(comment_params)
         format.html { redirect_to [@snippet, @comment], notice: 'Comment was successfully updated.' }
         format.json { head :no_content }
       else
@@ -103,5 +103,9 @@ class CommentsController < ApplicationController
         redirect_to @snippet, alert: "作成者以外は編集できません"
       end
     end
+  end
+
+  def comment_params
+    params.require(:comment).permit(:description, :user_id)
   end
 end
