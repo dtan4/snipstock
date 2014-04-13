@@ -1,0 +1,46 @@
+doctype html
+html[lang="en"]
+  head
+    meta[charset="utf-8"]
+    meta[http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"]
+    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+    title
+      = content_for?(:title) ? yield(:title) : "SnipStock"
+    = csrf_meta_tags
+    = stylesheet_link_tag "application", :media => "all"
+  body
+    .navbar.navbar-fluid-top
+      .navbar-inner
+        .container-fluid
+          = link_to 'SnipStock', root_path, class: "brand"
+          .container-fluid
+            ul.nav
+              li
+                = link_to 'Snippets', snippets_path
+            ul.nav.pull-right
+              li.divider-vertical
+              li
+                = form_tag search_snippets_path, method: :get, class: "navbar-search" do
+                  = text_field_tag 'q', params[:q], class: "search-query", placeholder: "Search"
+              - if @login_user
+                li
+                  a[href="#newSnipModal" data-toggle="modal"]
+                    i.icon-plus-sign
+                    |  New Snippet
+                li
+                  = link_to @login_user.name, @login_user
+                li
+                  = link_to 'Logout', logout_path
+              - else
+                li
+                  = link_to 'Sign up', new_user_path
+                li
+                  = link_to 'Login', login_path
+    - if @login_user
+      = render 'snippets/simple_form'
+    .container-fluid
+      = bootstrap_flash
+      = yield
+      footer
+
+    = javascript_include_tag "application"

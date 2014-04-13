@@ -1,0 +1,17 @@
+table#comments_table.table.table-striped
+  tbody
+    - if @snippet.comments.length > 1
+      - @snippet.comments.each_with_index do |comment, i|
+        - unless comment.id.nil?
+          tr
+            td
+              b
+                = "#{i + 1}. "
+            td
+              = User.find_by_id(comment.user_id).name
+              | :
+            td
+              = comment.description
+- if @snippet.comments.length <= 1
+  p#no_comment
+    | No comment

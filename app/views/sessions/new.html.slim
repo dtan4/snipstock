@@ -1,0 +1,9 @@
+= bootstrap_form_tag do
+  .field
+    = label_tag "User Name"
+    = text_field_tag :name, params[:name]
+  .field
+    = label_tag "Password"
+    = password_field_tag :password, params[:password]
+  .actions
+    = submit_tag "Login"

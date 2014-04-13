@@ -1,0 +1,48 @@
+- @snippets.each_with_index do |snippet, i|
+  - author = User.find_by_id(snippet.user_id)
+  .well
+    p
+      ' posted by
+      strong
+        = link_to author.name, author
+      ' ,
+      = distance_of_time_in_words(Time.now, snippet.created_at)
+      |  ago
+    - if snippet.private
+      h4
+        | * Private *
+    h2
+      = link_to snippet.title, snippet
+    .row-fluid
+      .span4
+        p
+          = html_escape(snippet.description[0..49]) unless snippet.description.nil?
+        p
+          strong
+            ' Lang:
+          = link_to snippet.lang, langs_snippets_path(lang: snippet.lang)
+        .field
+          - snippet.tag_list.each do |tag|
+            = link_to tag, tags_snippets_path(tag: tag), class: "btn btn-small"
+        p
+          = pluralize(snippet.comments.length, "comment")
+      .span8
+        pre class="brush: #{snippet.lang.downcase}"
+          = snippet.code.lines[0..9].join
+        - if params[:login_id] && snippet.user_id == params[:login_id]
+          .text-right
+            span
+              = link_to 'Edit', edit_snippet_path(snippet), class: "btn btn-small btn-success disabled"
+            span
+              = link_to 'Destroy', snippet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-small btn-danger disabled"
+.field
+  = link_to 'New snippet', new_snippet_path, class: "btn btn-large disabled"
+p
+  = will_paginate @snippets, class: "pagination pagination-centered"
+script[src="/scripts/XRegExp.js"]
+script[src="/scripts/shCore.js"]
+script[src="/scripts/shAutoloader.js"]
+link[type="text/css" rel="stylesheet" href="/styles/shCore.css"]
+link[type="text/css" rel="Stylesheet" href="/styles/shThemeDefault.css"]
+script[type="text/javascript"]
+  |  SyntaxHighlighter.autoloader( 'cpp c /scripts/shBrushCpp.js', 'c# c-sharp csharp /scripts/shBrushCSharp.js', 'css /scripts/shBrushCss.js', 'delphi pascal /scripts/shBrushDelphi.js', 'diff patch pas /scripts/shBrushDiff.js', 'erl erlang /scripts/shBrushErlang.js', 'groovy /scripts/shBrushGroovy.js', 'java /scripts/shBrushJava.js', 'js jscript javascript /scripts/shBrushJScript.js', 'perl pl /scripts/shBrushPerl.js', 'php /scripts/shBrushPhp.js', 'text plain /scripts/shBrushPlain.js', 'py python /scripts/shBrushPython.js', 'ruby rails ror rb /scripts/shBrushRuby.js', 'scala /scripts/shBrushScala.js', 'sql /scripts/shBrushSql.js', 'vb vbnet /scripts/shBrushVb.js', 'xml xhtml xslt html /scripts/shBrushXml.js' ); SyntaxHighlighter.all();

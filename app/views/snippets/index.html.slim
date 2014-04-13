@@ -1,0 +1,23 @@
+.page-header
+  h1
+    | Listing snippets
+  - if params[:q] && params[:q] != ""
+    p
+      | Search keyword: 
+      strong
+        = params[:q]
+  - elsif params[:tag]
+    p
+      | Tag: 
+      strong
+        = params[:tag]
+  - elsif params[:lang]
+    p
+      | Lang: 
+      strong
+        = params[:lang]
+.text-right
+  = form_tag :search_snippets, method: :get, class: "form-search" do
+    = text_field_tag 'q', params[:q], class:"input-medium search-query"
+    = submit_tag 'Search', class: "btn"
+= render 'index'

@@ -1,0 +1,12 @@
+| $('#comments_table tbody').append('
+tr
+  td
+    b
+      = @snippet.comments.length
+      | : 
+  td
+    =j User.find_by_id(@comment.user_id).name
+    | : 
+  td
+    =j @comment.description
+| '); $('#comment_description').val(""); $('#no_comment').remove();

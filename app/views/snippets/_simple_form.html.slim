@@ -1,0 +1,27 @@
+#newSnipModal.modal.hide.fade[tabindex="-1" role="dialog" aria-labelledby="newSnipModalLabel" aria-hidden="true"]
+  .modal-header
+    button.close[type="button" data-dismiss="modal" aria-hidden="true"]
+      | ×
+    h3#myModalLabel
+      | New Snippet
+  .modal-body
+    = bootstrap_form_for(@snippet_top) do |f|
+      - if @snippet_top.errors.any?
+        #error_explanation
+          h2
+            = pluralize(@snippet_top.errors.count, "error")
+            |  prohibited this snippet from being saved:
+          ul
+            - @snippet_top.errors.full_messages.each do |msg|
+              li
+                = msg
+      .field
+        = f.text_field :title
+      .field
+        = f.text_field :lang
+      .field
+        = f.text_area :code, class: "span8", rows: "9"
+        / TODO: show submit button in .modal-footer
+      button.btn[data-dismiss="modal" aria-hidden="true"]
+        | Close
+      = f.submit

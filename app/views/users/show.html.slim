@@ -1,0 +1,20 @@
+- if @user.id == @login_user.id
+  .row-fluid
+    .span10
+      h1
+        = @user.name
+      p
+        | You have 
+        = pluralize(@snippets.length, "snippet")
+    .span2
+      .field
+        = link_to 'Edit', edit_user_path(@user), class: "btn btn-success disabled"
+      .field
+        = link_to 'Delete account', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger disabled"
+- else
+  h2
+    = @user.name
+  p
+    | Posted 
+    = pluralize(@snippets.length, "snippet")
+= render 'snippets/index'

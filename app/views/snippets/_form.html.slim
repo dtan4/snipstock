@@ -1,0 +1,27 @@
+= bootstrap_form_for(@snippet) do |f|
+  - if @snippet.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@snippet.errors.count, "error")
+        |  prohibited this snippet from being saved:
+      ul
+        - @snippet.errors.full_messages.each do |msg|
+          li
+            = msg
+  .row-fluid
+    .span4
+      .field
+        = f.text_field :title
+      .field
+        = f.text_area :description, rows: 3, cols: 40
+      .field
+        = f.text_field :tag_list
+      .field
+        = f.text_field :lang
+      .field
+        = f.check_box :private
+      .actions
+        = f.submit
+    .span8
+      .field
+        = f.text_area :code, class: "span12"
