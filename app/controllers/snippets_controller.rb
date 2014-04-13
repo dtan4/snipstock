@@ -5,7 +5,7 @@ class SnippetsController < ApplicationController
   # GET /snippets
   # GET /snippets.json
   def index
-    @snippets = Snippet.order("updated_at").where(private: false).paginate(page: params[:page], per_page: 10)
+    @snippets = Snippet.order("updated_at DESC").where(private: false).paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -32,7 +32,7 @@ class SnippetsController < ApplicationController
   end
 
   def search
-    @snippets = Snippet.order("updated_at").where('title like ? or description like ? or code like ?', "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
+    @snippets = Snippet.order("updated_at DESC").where('title like ? or description like ? or code like ?', "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
       .paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
@@ -42,7 +42,7 @@ class SnippetsController < ApplicationController
   end
 
   def langs
-    @snippets = Snippet.order("updated_at").where('lang like ?', "%#{params[:lang]}%")
+    @snippets = Snippet.order("updated_at DESC").where('lang like ?', "%#{params[:lang]}%")
       .paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
@@ -53,7 +53,7 @@ class SnippetsController < ApplicationController
 
   def tags
     tag = params[:tag]
-    @snippets = Snippet.tagged_with(tag).order("updated_at")
+    @snippets = Snippet.tagged_with(tag).order("updated_at DESC")
       .paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
