@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-    @snippets = Snippet.where(user_id: @user.id).paginate(page: params[:page], order: 'updated_at desc', per_page: 10)
+    @snippets = Snippet.order("updated_at DESC").where(user_id: @user.id).paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(user_params)
         format.html { redirect_to users_url, notice: "User #{@user.name} was successfully updated." }
         format.json { head :no_content }
       else
@@ -89,5 +89,11 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :password_digest, :password, :password_confirmation)
   end
 end

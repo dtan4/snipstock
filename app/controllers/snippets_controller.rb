@@ -5,7 +5,7 @@ class SnippetsController < ApplicationController
   # GET /snippets
   # GET /snippets.json
   def index
-    @snippets = Snippet.where(private: false).paginate(page: params[:page], order: 'updated_at desc', per_page: 10)
+    @snippets = Snippet.order("updated_at DESC").where(private: false).paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -32,8 +32,8 @@ class SnippetsController < ApplicationController
   end
 
   def search
-    @snippets = Snippet.where('title like ? or description like ? or code like ?', "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
-      .paginate(page: params[:page], order: 'updated_at desc', per_page: 10)
+    @snippets = Snippet.order("updated_at DESC").where('title like ? or description like ? or code like ?', "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
+      .paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
       format.html { render action: 'index' }
@@ -42,8 +42,8 @@ class SnippetsController < ApplicationController
   end
 
   def langs
-    @snippets = Snippet.where('lang like ?', "%#{params[:lang]}%")
-      .paginate(page: params[:page], order: 'updated_at desc', per_page: 10)
+    @snippets = Snippet.order("updated_at DESC").where('lang like ?', "%#{params[:lang]}%")
+      .paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
       format.html { render action: 'index' }
@@ -53,8 +53,8 @@ class SnippetsController < ApplicationController
 
   def tags
     tag = params[:tag]
-    @snippets = Snippet.tagged_with(tag)
-      .paginate(page: params[:page], order: 'updated_at desc', per_page: 10)
+    @snippets = Snippet.tagged_with(tag).order("updated_at DESC")
+      .paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
       format.html { render action: 'index' }
@@ -82,7 +82,7 @@ class SnippetsController < ApplicationController
   # POST /snippets
   # POST /snippets.json
   def create
-    @snippet = Snippet.new(params[:snippet])
+    @snippet = Snippet.new(snippet_params)
     @snippet.user_id = @login_user.id
 
     respond_to do |format|
@@ -103,7 +103,7 @@ class SnippetsController < ApplicationController
     check_snippet_author
 
     respond_to do |format|
-      if @snippet.update_attributes(params[:snippet])
+      if @snippet.update_attributes(snippet_params)
         format.html { redirect_to @snippet, notice: "Snippet '#{@snippet.title}' was successfully updated." }
         format.json { head :no_content }
       else
@@ -136,5 +136,9 @@ class SnippetsController < ApplicationController
         redirect_to @snippet, alert: "作成者以外は編集できません"
       end
     end
+  end
+
+  def snippet_params
+    params.require(:snippet).permit(:code, :lang, :title, :description, :user_id, :comments, :tags, :tag_list, :private)
   end
 end
